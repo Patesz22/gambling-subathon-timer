@@ -13,7 +13,7 @@
  * @returns {{item: any, index: number}}
  */
 /* eslint-disable consistent-return */
-// import data from '../items.json';
+// import data from '../items_wheel.json';
 
 function weightedRandom(items, weights, round) {
 	const returnList = []
