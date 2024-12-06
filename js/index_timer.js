@@ -1,13 +1,17 @@
+import * as config from '../config/config.js'
+import timeFunc from './lib/timeFunc.js'
+import {server_bind_address} from '../config/config.js';
+
 const timeText = document.getElementById("timeText");
 
 let endingTime = new Date(Date.now());
-endingTime = timeFunc.addHours(endingTime, initialHours);
-endingTime = timeFunc.addMinutes(endingTime, initialMinutes);
-endingTime = timeFunc.addSeconds(endingTime, initialSeconds);
+endingTime = timeFunc.addHours(endingTime, config.initialHours);
+endingTime = timeFunc.addMinutes(endingTime, config.initialMinutes);
+endingTime = timeFunc.addSeconds(endingTime, config.initialSeconds);
 
-let countdownEnded = false;
 let users = [];
 let time;
+let saveTime = new Date(Date.now());
 
 const getNextTime = () => {
     let currentTime = new Date(Date.now());
@@ -15,10 +19,35 @@ const getNextTime = () => {
     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
     if (differenceTime <= 0) {
         clearInterval(countdownUpdater);
-        countdownEnded = true;
+        config.countdownEnded = true;
         time = "00:00:00";
     }
     timeText.innerText = time;
+
+    // console.log(Date.now() - saveTime)
+    if ((Date.now() - saveTime) >= config.saveInterval) {
+        console.log(timeFunc.getHours(differenceTime))
+        console.log(timeFunc.getMinutes(differenceTime))
+        console.log(timeFunc.getSeconds(differenceTime))
+        fetch(`http://${config.server_bind_address}:${config.server_port}/updateTimeConfig`, {
+            method: "POST",
+            // body: {
+            //     "hours": timeFunc.getHours(differenceTime),
+            //     "minutes": timeFunc.getMinutes(differenceTime),
+            //     "seconds": timeFunc.getSeconds(differenceTime)
+            // },
+            body: JSON.stringify({
+                hours: timeFunc.getHours(differenceTime),
+                minutes: timeFunc.getMinutes(differenceTime),
+                seconds: timeFunc.getSeconds(differenceTime)
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        saveTime = new Date(Date.now());
+    }
+
 };
 
 let countdownUpdater = setInterval(() => {
@@ -26,11 +55,11 @@ let countdownUpdater = setInterval(() => {
 }, 100);
 
 
-
-const addTime = async (time, s) => {
+export const addTime = async (time, s) => {
     endingTime = timeFunc.addSeconds(time, s);
-	if (!(maxHours == 0 && maxMinutes == 0 && maxSeconds == 0)) {
-		let maxTime = timeFunc.getMilliseconds(new Date(Date.now()), maxHours, maxMinutes, maxSeconds);
+
+	if (!(config.maxHours === 0 && config.maxMinutes === 0 && config.maxSeconds === 0)) {
+		let maxTime = timeFunc.getMilliseconds(new Date(Date.now()), config.maxHours, config.maxMinutes, config.maxSeconds);
 		if (endingTime.getTime() > maxTime.getTime()) endingTime = maxTime;
 	}
 
@@ -48,7 +77,6 @@ const addTime = async (time, s) => {
     await sleep(500);
     addedTime.remove();
 };
-
 
 
 const testAddTime = (times, delay) => {

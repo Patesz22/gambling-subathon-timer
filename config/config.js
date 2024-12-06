@@ -1,44 +1,59 @@
-import 'dotenv/config'
+export var server_port = "8011"
+export var server_bind_address = "127.0.0.1"
 
 
-// // Login Data
-// var twitch_channel_name = ""
-// var streamlabs_token = ""
-// var streamelements_token = ""
-// var streamloots_token = ""
-//
-// // Initial Counter Config
-// var initialHours = 5
-// var initialMinutes = 0
-// var initialSeconds = 0
-//
-// // Max Counter Time (Leave At 0 For No Limit)
-// var maxHours = 0
-// var maxMinutes = 0
-// var maxSeconds = 0
-//
-// // General Twitch, Streamlabs And StreamElements Config
-// var seconds_added_per_sub_prime = 30
-// var seconds_added_per_sub_tier1 = 30
-// var seconds_added_per_sub_tier2 = 60
-// var seconds_added_per_sub_tier3 = 120
-//
-// var seconds_added_per_resub_prime = 30
-// var seconds_added_per_resub_tier1 = 30
-// var seconds_added_per_resub_tier2 = 60
-// var seconds_added_per_resub_tier3 = 120
-//
-// var seconds_added_per_giftsub_tier1 = 30
-// var seconds_added_per_giftsub_tier2 = 60
-// var seconds_added_per_giftsub_tier3 = 120
-//
-// var min_amount_of_bits = 500
-// var seconds_added_per_bits = 30
-//
-// // Streamlabs And StreamElements Config
-// var min_donation_amount = 5
-// var seconds_added_per_donation = 30
-//
-// // Streamloots Config
-// var min_amount_of_chests = 5
-// var seconds_added_per_chests = 30
+// Login Data
+export var twitch_channel_name = ""
+export var streamlabs_token = ""
+export var streamelements_token = ""
+export var streamloots_token = ""
+
+
+// Max Counter Time (Leave At 0 For No Limit)
+export var saveInterval = 5000 // init_time.json save interval in miliseconds
+export var maxHours = 0
+export var maxMinutes = 0
+export var maxSeconds = 0
+
+// General Twitch, Streamlabs And StreamElements Config
+export var seconds_added_per_sub_prime = 30
+export var seconds_added_per_sub_tier1 = 30
+export var seconds_added_per_sub_tier2 = 60
+export var seconds_added_per_sub_tier3 = 120
+
+export var seconds_added_per_resub_prime = 30
+export var seconds_added_per_resub_tier1 = 30
+export var seconds_added_per_resub_tier2 = 60
+export var seconds_added_per_resub_tier3 = 120
+
+export var seconds_added_per_giftsub_tier1 = 30
+export var seconds_added_per_giftsub_tier2 = 60
+export var seconds_added_per_giftsub_tier3 = 120
+
+export var min_amount_of_bits = 500
+export var seconds_added_per_bits = 30
+
+// Streamlabs And StreamElements Config
+export var min_donation_amount = 5
+export var seconds_added_per_donation = 30
+
+// Streamloots Config
+export var min_amount_of_chests = 5
+export var seconds_added_per_chests = 30
+
+
+
+// Do not modify below this point //// Do not modify below this point //// Do not modify below this point //// Do not modify below this point //
+// Do not modify below this point //// Do not modify below this point //// Do not modify below this point //// Do not modify below this point //
+
+export var countdownEnded = false
+
+let getConfig = async (path) => {
+    let temp;
+    temp = await fetch(`http://${server_bind_address}:${server_port}/${path}`)
+    return Number(await temp.json())
+}
+
+export var initialHours = await getConfig("initHours")
+export var initialMinutes =  await getConfig("initMin")
+export var initialSeconds =  await getConfig("initSec")

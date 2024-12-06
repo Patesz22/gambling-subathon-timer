@@ -1,22 +1,22 @@
 import express from "express";
 import cors from "cors";
 import data from "./config/items_wheel.json" with { type: "json" };
+import server_conf from "./config/server_config.json" with { type: "json" };
+import time_data from "./config/init_time.json" with { type: "json" };
 import {weightedRandom} from './js/lib/getRandomWinner.js';
 import {RandomChoice} from './js/lib/randomChoice.js';
 import {getRandomFloat} from './src/util.js';
-import 'dotenv/config';
-// const express = require('express');
-// const cors = require("cors");
-// const sample = require('./items_wheel.json');
+import bodyParser from 'body-parser';
+import * as fs from "fs";
 
 const app = express();
+let time_data_writeable = time_data
 
-const port = process.env.SERVER_PORT;
-const host = process.env.SERVER_BIND_ADDRESS;
-app.listen(port, host)
-console.log(`http://${host}:${port}`)
+app.listen(server_conf["port"], server_conf["host"]);
+console.log(`http://${server_conf["host"]}:${server_conf["port"]}`)
 
 app.use(cors());
+app.use(bodyParser.json())
 // app.get('/', (req, res) => {
 // 	res.json(sample);
 // });
@@ -52,23 +52,48 @@ app.get('/filleritems', (req, res) => {
 
 	}
 	console.log(choicearray);
-	// Object.assign(choicedict, {"label": choice[0]}, {"label": choice[1]},
-	// 	{"label": choice[2]}, {"label": choice[3]}, {"label": choice[4]}, {"label": choice[5]},
-	// 	{"label": choice[6]}, {"label": choice[7]}, {"label": choice[8]}, {"label": choice[9]})
-
-	// res.send("text")
 	res.json(choicearray);
 	console.log("\n");
 });
 
-app.get('/slicecount', (req, res) => {
-
-	res.json(count);
+app.get('/initHours', (req, res) => {
+	console.log(time_data_writeable["hours"])
+	res.json(Number(time_data_writeable["hours"]));
 });
 
-app.get('/config', (req, res) => {
-	res.json(data);
+app.get('/initMin', (req, res) => {
+	console.log(time_data_writeable["minutes"])
+	res.json(Number(time_data_writeable["minutes"]));
 });
 
+app.get('/initSec', (req, res) => {
+	console.log(time_data_writeable["seconds"])
+	res.json(Number(time_data_writeable["seconds"]));
+});
 
+app.post('/updateTimeConfig', (req, res) => {
+	let reqdata = {
+		"hours": req.body["hours"],
+		"minutes": req.body["minutes"],
+		"seconds": req.body["seconds"]
+	}
+
+	console.log(req.body);
+	// console.log(reqdata["hours"], reqdata["minutes"], reqdata["seconds"]);
+	if (reqdata["hours"] === undefined || reqdata["minutes"] === undefined || reqdata["seconds"] === undefined) {
+		res.sendStatus(400)
+		throw new Error("Invalid data")
+	}
+
+	try {
+		fs.writeFileSync("./config/init_time.json", JSON.stringify(reqdata));
+		time_data_writeable = reqdata
+		res.sendStatus(200)
+	}
+	catch (e) {
+		console.error(e);
+		res.sendStatus(500)
+	}
+
+});
 

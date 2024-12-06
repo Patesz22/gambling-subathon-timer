@@ -3,8 +3,10 @@ import {getRandomInt} from '../src/util.js';
 import {AlignText} from '../src/constants.js';
 import {imageToHTML} from './lib/imageToHTML.js';
 
+// This is because json imports are unsupported //
 const api_host = "127.0.0.1";
 const api_port = 8011;
+// This is because json imports are unsupported //
 
 async function GetHttpAsync(path)
 {

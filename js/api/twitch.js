@@ -1,17 +1,21 @@
-if (twitch_channel_name !== "") {
+import {addTime} from '../index_timer.js';
+import tmi from 'browser-sync/dist/config.js';
+import * as config from '../../config/config.js'
+
+if (config.twitch_channel_name !== "") {
     const client = new tmi.client({
         connection: {
             reconnect: true,
             secure: true,
         },
-        channels: [twitch_channel_name],
+        channels: [config.twitch_channel_name],
     });
 
     client.connect();
     logMessage("Twitch", `Client Connected`);
 
     client.on('subscription', (channel, username, methods, message, userstate) => {
-        if (!countdownEnded) {
+        if (!config.countdownEnded) {
             switch (methods['plan']) {
                 case "Prime":
                     addTime(endingTime, seconds_added_per_sub_prime);
@@ -37,7 +41,7 @@ if (twitch_channel_name !== "") {
     });
 
     client.on('resub', (channel, username, months, message, userstate, methods) => {
-        if (!countdownEnded) {
+        if (!config.countdownEnded) {
             switch (methods['plan']) {
                 case "Prime":
                     addTime(endingTime, seconds_added_per_resub_prime);
@@ -63,7 +67,7 @@ if (twitch_channel_name !== "") {
     });
 
     client.on('subgift', (channel, username, months, recipient, methods, userstate) => {
-        if (!countdownEnded) {
+        if (!config.countdownEnded) {
             switch (methods['plan']) {
                 case "Prime":
                     addTime(endingTime, seconds_added_per_giftsub_tier1);
@@ -89,7 +93,7 @@ if (twitch_channel_name !== "") {
     });
 
     client.on('cheer', (channel, userstate, message) => {
-        if (!countdownEnded) {
+        if (!config.countdownEnded) {
             if (userstate.bits >= min_amount_of_bits) {
                 let times = Math.floor(userstate.bits/min_amount_of_bits);
                 addTime(endingTime, seconds_added_per_bits * times);
