@@ -4,14 +4,15 @@ import data from "./config/items_wheel.json" with { type: "json" };
 import {weightedRandom} from './js/lib/getRandomWinner.js';
 import {RandomChoice} from './js/lib/randomChoice.js';
 import {getRandomFloat} from './src/util.js';
+import 'dotenv/config';
 // const express = require('express');
 // const cors = require("cors");
 // const sample = require('./items_wheel.json');
 
 const app = express();
 
-const port = 8011;
-const host = "127.0.0.1";
+const port = process.env.SERVER_PORT;
+const host = process.env.SERVER_BIND_ADDRESS;
 app.listen(port, host)
 console.log(`http://${host}:${port}`)
 
