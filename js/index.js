@@ -1,7 +1,7 @@
 import {Wheel} from '../dist/spin-wheel-esm.js';
 import {getRandomInt} from '../src/util.js';
 import {AlignText} from '../src/constants.js';
-import {imageToHTML} from './imageToHTML.js';
+import {imageToHTML} from './lib/imageToHTML.js';
 
 const api_host = "127.0.0.1";
 const api_port = 8011;

@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import data from "./items.json" with { type: "json" };
-import {weightedRandom} from './js/getRandomWinner.js';
-import {RandomChoice} from './js/randomChoice.js';
+import {weightedRandom} from './js/lib/getRandomWinner.js';
+import {RandomChoice} from './js/lib/randomChoice.js';
 import {getRandomFloat} from './src/util.js';
 // const express = require('express');
 // const cors = require("cors");
