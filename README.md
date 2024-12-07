@@ -7,7 +7,7 @@ Wheel from **[Spin-wheel](https://github.com/CrazyTim/spin-wheel)**
 
 Timer from **[Twitch-subathon-countdown](https://github.com/JayexDesigns/twitch-subathon-countdown)**
 
-Twitch API integration with **[tmijs](https://github.com/tmijs/tmi.js)**
+Twitch API integration with **[Twitch-js](https://github.com/twitch-js/twitch-js)**
 
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license "View license")
