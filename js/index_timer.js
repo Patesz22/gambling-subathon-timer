@@ -1,6 +1,17 @@
 import * as config from '../config/config.js'
 import timeFunc from './lib/timeFunc.js'
-import {server_bind_address} from '../config/config.js';
+
+// let config = require('../config/config.js');
+// let timeFunc = require('./lib/timeFunc.js');
+
+// Creating new web worker
+const worker = new Worker('js/api/twitch.js');
+
+// Response
+worker.onmessage = function (e)
+{
+    console.log(e.data);
+};
 
 const timeText = document.getElementById("timeText");
 
@@ -13,11 +24,13 @@ let users = [];
 let time;
 let saveTime = new Date(Date.now());
 
-const getNextTime = () => {
+export const getNextTime = () =>
+{
     let currentTime = new Date(Date.now());
     let differenceTime = endingTime - currentTime;
     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
-    if (differenceTime <= 0) {
+    if (differenceTime <= 0)
+    {
         clearInterval(countdownUpdater);
         config.countdownEnded = true;
         time = "00:00:00";
@@ -25,23 +38,27 @@ const getNextTime = () => {
     timeText.innerText = time;
 
     // console.log(Date.now() - saveTime)
-    if ((Date.now() - saveTime) >= config.saveInterval) {
-        console.log(timeFunc.getHours(differenceTime))
-        console.log(timeFunc.getMinutes(differenceTime))
-        console.log(timeFunc.getSeconds(differenceTime))
-        fetch(`http://${config.server_bind_address}:${config.server_port}/updateTimeConfig`, {
+    if ((Date.now() - saveTime) >= config.saveInterval)
+    {
+        // console.log(timeFunc.getHours(differenceTime))
+        // console.log(timeFunc.getMinutes(differenceTime))
+        // console.log(timeFunc.getSeconds(differenceTime))
+        fetch(`http://${config.server_bind_address}:${config.server_port}/updateTimeConfig`,
+            {
             method: "POST",
             // body: {
             //     "hours": timeFunc.getHours(differenceTime),
             //     "minutes": timeFunc.getMinutes(differenceTime),
             //     "seconds": timeFunc.getSeconds(differenceTime)
             // },
-            body: JSON.stringify({
+            body: JSON.stringify(
+                {
                 hours: timeFunc.getHours(differenceTime),
                 minutes: timeFunc.getMinutes(differenceTime),
                 seconds: timeFunc.getSeconds(differenceTime)
-            }),
-            headers: {
+                }),
+            headers:
+                {
                 "Content-Type": "application/json"
             }
         });
@@ -50,15 +67,18 @@ const getNextTime = () => {
 
 };
 
-let countdownUpdater = setInterval(() => {
+let countdownUpdater = setInterval(() =>
+{
     getNextTime();
 }, 100);
 
 
-export const addTime = async (time, s) => {
+export const addTime = async (time, s) =>
+{
     endingTime = timeFunc.addSeconds(time, s);
 
-	if (!(config.maxHours === 0 && config.maxMinutes === 0 && config.maxSeconds === 0)) {
+	if (!(config.maxHours === 0 && config.maxMinutes === 0 && config.maxSeconds === 0))
+    {
 		let maxTime = timeFunc.getMilliseconds(new Date(Date.now()), config.maxHours, config.maxMinutes, config.maxSeconds);
 		if (endingTime.getTime() > maxTime.getTime()) endingTime = maxTime;
 	}
@@ -79,14 +99,18 @@ export const addTime = async (time, s) => {
 };
 
 
-const testAddTime = (times, delay) => {
-    let addTimeInterval = setInterval(async () => {
-        if (times > 0) {
+const testAddTime = (times, delay) =>
+{
+    let addTimeInterval = setInterval(async () =>
+    {
+        if (times > 0)
+        {
             await sleep(randomInRange(50, delay-50));
             addTime(endingTime, 30);
             --times;
         }
-        else {
+        else
+        {
             clearInterval(addTimeInterval);
         }
     }, delay);

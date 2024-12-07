@@ -5,16 +5,19 @@ const api_port = 8011;
 
 async function GetHttpAsync(path)
 {
-	try {
+	try
+	{
 		const response = await fetch(`http://${api_host}:${api_port}/${path}`);
 		return await response.json();
-	} catch (error) {
+	} catch (error)
+	{
 		console.log(error);
 	}
 }
 
 
-async function getItems() {
+async function getItems()
+{
 	const data = await GetHttpAsync("config");
 	return data;
 }

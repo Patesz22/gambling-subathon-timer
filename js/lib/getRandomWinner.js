@@ -13,14 +13,18 @@
  * @returns {{item: any, index: number}}
  */
 /* eslint-disable consistent-return */
-export function weightedRandom(items, weights, round) {
+export function weightedRandom(items, weights, round)
+{
 	const returnList = []
-	for (let x = 0; x < round; x++) {
-		if (items.length !== weights.length) {
+	for (let x = 0; x < round; x++)
+	{
+		if (items.length !== weights.length)
+		{
 			throw new Error('Items and weights must be of the same size');
 		}
 
-		if (!items.length) {
+		if (!items.length)
+		{
 			throw new Error('Items must not be empty');
 		}
 
@@ -29,7 +33,8 @@ export function weightedRandom(items, weights, round) {
 		// - weights = [1, 4, 3]
 		// - cumulativeWeights = [1, 5, 8]
 		const cumulativeWeights = [];
-		for (let i = 0; i < weights.length; i += 1) {
+		for (let i = 0; i < weights.length; i += 1)
+		{
 			cumulativeWeights[i] = weights[i] + (cumulativeWeights[i - 1] || 0);
 		}
 
@@ -43,8 +48,10 @@ export function weightedRandom(items, weights, round) {
 
 		// Picking the random item based on its weight.
 		// The items with higher weight will be picked more often.
-		for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
-			if (cumulativeWeights[itemIndex] >= randomNumber) {
+		for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1)
+		{
+			if (cumulativeWeights[itemIndex] >= randomNumber)
+			{
 				returnList.push(items[itemIndex]);
 				break;
 			}

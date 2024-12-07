@@ -8,6 +8,12 @@ const api_host = "127.0.0.1";
 const api_port = 8011;
 // This is because json imports are unsupported //
 
+// const Wheel = require('../dist/spin-wheel-esm.js');
+// const randomInt = require('../src/util.js');
+// const alignText = require('../src/constants.js');
+// const imageToHTML = require('./lib/imageToHTML.js');
+// const config = require('../config/config');
+
 async function GetHttpAsync(path)
 {
 	const response = await fetch(`http://${api_host}:${api_port}/${path}`);

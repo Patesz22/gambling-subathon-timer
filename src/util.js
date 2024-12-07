@@ -175,7 +175,7 @@ export function fixFloat(f = 0) {
 }
 
 /**
- * Easing function.
+ * Easing export function.
  */
 export function easeSinOut(n) {
   return Math.sin((n * Math.PI) / 2);
