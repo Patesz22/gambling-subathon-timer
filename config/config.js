@@ -3,10 +3,22 @@ export var server_bind_address = "127.0.0.1"
 
 
 // Login Data
+// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //
+// Twitch
 export var twitch_channel_name = ""
+export var twitch_client_id = ""
+export var twitch_client_secret = ""
+
+export var twitch_client
+export var twitch_access_token = ""
+export var twitch_refresh_token = ""
+
+
 export var streamlabs_token = ""
 export var streamelements_token = ""
 export var streamloots_token = ""
+// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //
+
 
 
 // Max Counter Time (Leave At 0 For No Limit)
@@ -48,12 +60,23 @@ export var seconds_added_per_chests = 30
 
 export var countdownEnded = false
 
+// let getConfig = async (path) => {
+//     try {
+//         let temp;
+//         temp = await fetch(`http://${server_bind_address}:${server_port}/${path}`)
+//         return Number(await temp.json())
+//     }
+//     catch (e) {
+//         return 0
+//     }
+// }
+
 let getConfig = async (path) => {
     let temp;
     temp = await fetch(`http://${server_bind_address}:${server_port}/${path}`)
     return Number(await temp.json())
 }
 
-export var initialHours = await getConfig("initHours")
-export var initialMinutes =  await getConfig("initMin")
-export var initialSeconds =  await getConfig("initSec")
+export var initialHours = await getConfig("initHours") || 0
+export var initialMinutes =  await getConfig("initMin") || 0
+export var initialSeconds =  await getConfig("initSec") || 0
