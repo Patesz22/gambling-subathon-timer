@@ -10,7 +10,7 @@ export var twitch_client_id = ""
 export var twitch_client_secret = ""
 
 export var twitch_client
-export var twitch_access_token = "asd"
+export var twitch_access_token = ""
 export var twitch_refresh_token = ""
 
 
