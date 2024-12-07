@@ -1,0 +1,201 @@
+{
+	"1": {
+		"label": "-50%",
+		"probability": 0.01,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"2": {
+		"label": "-25%",
+		"probability": 0.02,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"3": {
+		"label": "-20%",
+		"probability": 0.04,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"4": {
+		"label": "-15%",
+		"probability": 0.06,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"5": {
+		"label": "-10%",
+		"probability": 0.10,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"6": {
+		"label": "-9%",
+		"probability": 0.12,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"7": {
+		"label": "-8%",
+		"probability": 0.14,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"8": {
+		"label": "-7%",
+		"probability": 0.16,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"9": {
+		"label": "-6%",
+		"probability": 0.18,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"10": {
+		"label": "-5%",
+		"probability": 0.20,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"11": {
+		"label": "-4%",
+		"probability": 0.24,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"12": {
+		"label": "-3%",
+		"probability": 0.28,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"13": {
+		"label": "-2%",
+		"probability": 0.32,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"14": {
+		"label": "-1%",
+		"probability": 0.36,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"15": {
+		"label": "+50%",
+		"probability": 0.01,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"16": {
+		"label": "+25%",
+		"probability": 0.02,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"17": {
+		"label": "+20%",
+		"probability": 0.04,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"18": {
+		"label": "+15%",
+		"probability": 0.06,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"19": {
+		"label": "+10%",
+		"probability": 0.10,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"20": {
+		"label": "+9%",
+		"probability": 0.12,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"21": {
+		"label": "+8%",
+		"probability": 0.14,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"22": {
+		"label": "+7%",
+		"probability": 0.16,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"23": {
+		"label": "+6%",
+		"probability": 0.18,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"24": {
+		"label": "+5%",
+		"probability": 0.20,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"25": {
+		"label": "+4%",
+		"probability": 0.24,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"26": {
+		"label": "+3%",
+		"probability": 0.28,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"27": {
+		"label": "+2%",
+		"probability": 0.32,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	},
+	"28": {
+		"label": "+1%",
+		"probability": 0.36,
+		"rarity": "epic",
+		"color": "#9700ff",
+		"img": ""
+	}
+
+
+}
+
