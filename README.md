@@ -1,5 +1,5 @@
 <h1>gambling-subathon-timer</h1>
- Vedal987's gambling subathon timer
+Subathon timer with a configurable gambling wheel
 
 [<video src='/img/demo_video.mov'></video>](https://github.com/user-attachments/assets/e5079fc6-b94e-4500-a35e-806cbd54257d)
 
