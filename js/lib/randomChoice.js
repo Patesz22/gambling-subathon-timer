@@ -1,4 +1,4 @@
-export function RandomChoice(array, itemNumber)
+function RandomChoice(array, itemNumber)
 {
 	let retarray = []
 	for (let i = 0; i < itemNumber; i++)

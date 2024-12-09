@@ -1,13 +1,10 @@
-import * as util from './util.js';
-import {Defaults} from './constants.js';
-
-export class Item {
+class Item {
 
   constructor(wheel, props = {}) {
 
     // Validate params.
-    if (!util.isObject(wheel)) throw new Error('wheel must be an instance of Wheel'); // Ideally we would use instanceof, however importing the Wheel class would create a circular ref.
-    if (!util.isObject(props) && props !== null) throw new Error('props must be an Object or null');
+    if (!isObject(wheel)) throw new Error('wheel must be an instance of Wheel'); // Ideally we would use instanceof, however importing the Wheel class would create a circular ref.
+    if (!isObject(props) && props !== null) throw new Error('props must be an Object or null');
 
     this._wheel = wheel;
 
@@ -234,7 +231,7 @@ export class Item {
    * Return a random angle (in degrees) between this item's start angle (inclusive) and end angle (inclusive).
    */
   getRandomAngle() {
-    return util.getRandomFloat(this.getStartAngle(), this.getEndAngle());
+    return getRandomFloat(this.getStartAngle(), this.getEndAngle());
   }
 
 }

@@ -197,6 +197,16 @@ if (twitch_channel_name !== "") {
             }
     });
 
+
+    // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md#giftpaidupgrade
+    // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md#anongiftpaidupgrade
+    //
+    // todo
+
+
+
+
+    // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md#cheer
     client.on('cheer', (channel, userstate, message) =>
     {
         if (!countdownEnded)

@@ -1,11 +1,9 @@
-import * as util from './util.js';
-
-export function register(wheel = {}) {
+function register(wheel = {}) {
 
   registerPointerEvents(wheel);
 
   // Listen for when the window is resized.
-  wheel._handler_onResize = util.getResizeObserver(wheel._canvasContainer, ({redraw = true}) => {
+  wheel._handler_onResize = getResizeObserver(wheel._canvasContainer, ({redraw = true}) => {
     wheel.resize();
     if (redraw) wheel.draw(performance.now());
   });
@@ -26,7 +24,7 @@ export function register(wheel = {}) {
   listenForDevicePixelRatioChange();
 }
 
-export function unregister(wheel = {}) {
+function unregister(wheel = {}) {
 
   const canvas = wheel.canvas;
 

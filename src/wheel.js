@@ -1,10 +1,4 @@
-import * as util from './util.js';
-import * as Constants from './constants.js';
-import {Defaults} from './constants.js';
-import * as events from './events.js';
-import {Item} from './item.js';
-
-export class Wheel {
+class Wheel {
 
   /**
    * Create the wheel inside a container Element and initialise it with props.
@@ -15,7 +9,7 @@ export class Wheel {
 
     // Validate params.
     if (!(container instanceof Element)) throw new Error('container must be an instance of Element');
-    if (!util.isObject(props) && props !== null) throw new Error('props must be an Object or null');
+    if (!isObject(props) && props !== null) throw new Error('props must be an Object or null');
 
     // Init some things:
     this._frameRequestId = null;
@@ -94,7 +88,7 @@ export class Wheel {
 
     this._context = this.canvas.getContext('2d');
     this._canvasContainer.append(this.canvas);
-    events.register(this);
+    register(this);
     if (this._isInitialising === false) this.resize(); // Initalise the canvas's dimensions (but not when called from the constructor).
   }
 
@@ -104,7 +98,7 @@ export class Wheel {
   remove() {
     if (this.canvas === null) return;
     if (this._frameRequestId !== null) window.cancelAnimationFrame(this._frameRequestId);
-    events.unregister(this);
+    unregister(this);
     this._canvasContainer.removeChild(this.canvas);
     this._canvasContainer = null;
     this.canvas = null;
@@ -150,7 +144,7 @@ export class Wheel {
     this._actualRadius = (this._size / 2) * this.radius;
 
     // Adjust the font size of labels so they all fit inside the wheel's radius:
-    this._itemLabelFontSize = this.itemLabelFontSizeMax * (this._size / Constants.baseCanvasSize);
+    this._itemLabelFontSize = this.itemLabelFontSizeMax * (this._size / baseCanvasSize);
     this._labelMaxWidth = this._actualRadius * (this.itemLabelRadius - this.itemLabelRadiusMax);
 
     if (this.itemLabelAlign === 'center') {
@@ -158,7 +152,7 @@ export class Wheel {
     }
 
     for (const item of this._items) {
-      this._itemLabelFontSize = Math.min(this._itemLabelFontSize, util.getFontSizeToFit(item.label, this.itemLabelFont, this._labelMaxWidth, this._context));
+      this._itemLabelFontSize = Math.min(this._itemLabelFontSize, getFontSizeToFit(item.label, this.itemLabelFont, this._labelMaxWidth, this._context));
     }
 
     this.refresh();
@@ -200,8 +194,8 @@ export class Wheel {
         this._center.x,
         this._center.y,
         this._actualRadius - (actualBorderWidth / 2),
-        util.degRad(a.start + Constants.arcAdjust),
-        util.degRad(a.end + Constants.arcAdjust)
+        degRad(a.start + arcAdjust),
+        degRad(a.end + arcAdjust)
       );
 
       item.path = path;
@@ -253,11 +247,11 @@ export class Wheel {
       const angle = a.start + ((a.end - a.start) / 2);
 
       ctx.translate(
-        this._center.x + Math.cos(util.degRad(angle + Constants.arcAdjust)) * (this._actualRadius * item.imageRadius),
-        this._center.y + Math.sin(util.degRad(angle + Constants.arcAdjust)) * (this._actualRadius * item.imageRadius)
+        this._center.x + Math.cos(degRad(angle + arcAdjust)) * (this._actualRadius * item.imageRadius),
+        this._center.y + Math.sin(degRad(angle + arcAdjust)) * (this._actualRadius * item.imageRadius)
       );
 
-      ctx.rotate(util.degRad(angle + item.imageRotation));
+      ctx.rotate(degRad(angle + item.imageRotation));
 
       ctx.globalAlpha = item.imageOpacity;
 
@@ -289,7 +283,7 @@ export class Wheel {
       this._center.y
     );
 
-    if (!isOverlay) ctx.rotate(util.degRad(this._rotation));
+    if (!isOverlay) ctx.rotate(degRad(this._rotation));
 
     // Draw the image centered and scaled to fit the wheel's container:
     // For convenience, scale the 'normal' image to the size of the wheel radius
@@ -318,13 +312,13 @@ export class Wheel {
       this._center.y
     );
 
-    ctx.rotate(util.degRad(this._pointerAngle + Constants.arcAdjust));
+    ctx.rotate(degRad(this._pointerAngle + arcAdjust));
 
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(this._actualRadius * 2, 0);
 
-    ctx.strokeStyle = Constants.Debugging.pointerLineColor;
+    ctx.strokeStyle = Debugging.pointerLineColor;
     ctx.lineWidth = this.getScaledNumber(2);
     ctx.stroke();
 
@@ -349,13 +343,13 @@ export class Wheel {
       const actualDebugLineWidth = this.getScaledNumber(1);
 
       ctx.beginPath();
-      ctx.strokeStyle = ctx.strokeStyle = Constants.Debugging.labelRadiusColor;
+      ctx.strokeStyle = ctx.strokeStyle = Debugging.labelRadiusColor;
       ctx.lineWidth = actualDebugLineWidth;
       ctx.arc(this._center.x, this._center.y, this._actualRadius * this.itemLabelRadius, 0, 2 * Math.PI);
       ctx.stroke();
 
       ctx.beginPath();
-      ctx.strokeStyle = ctx.strokeStyle = Constants.Debugging.labelRadiusColor;
+      ctx.strokeStyle = ctx.strokeStyle = Debugging.labelRadiusColor;
       ctx.lineWidth = actualDebugLineWidth;
       ctx.arc(this._center.x, this._center.y, this._actualRadius * this.itemLabelRadiusMax, 0, 2 * Math.PI);
       ctx.stroke();
@@ -376,7 +370,7 @@ export class Wheel {
     );
 
     for (const angle of angles) {
-      ctx.rotate(util.degRad(angle.start + Constants.arcAdjust));
+      ctx.rotate(degRad(angle.start + arcAdjust));
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -386,7 +380,7 @@ export class Wheel {
       ctx.lineWidth = actualLineWidth;
       ctx.stroke();
 
-      ctx.rotate(-util.degRad(angle.start + Constants.arcAdjust));
+      ctx.rotate(-degRad(angle.start + arcAdjust));
     }
 
     ctx.resetTransform();
@@ -416,13 +410,13 @@ export class Wheel {
       const angle = a.start + ((a.end - a.start) / 2);
 
       ctx.translate(
-        this._center.x + Math.cos(util.degRad(angle + Constants.arcAdjust)) * (this._actualRadius * this.itemLabelRadius),
-        this._center.y + Math.sin(util.degRad(angle + Constants.arcAdjust)) * (this._actualRadius * this.itemLabelRadius)
+        this._center.x + Math.cos(degRad(angle + arcAdjust)) * (this._actualRadius * this.itemLabelRadius),
+        this._center.y + Math.sin(degRad(angle + arcAdjust)) * (this._actualRadius * this.itemLabelRadius)
       );
 
-      ctx.rotate(util.degRad(angle + Constants.arcAdjust));
+      ctx.rotate(degRad(angle + arcAdjust));
 
-      ctx.rotate(util.degRad(this.itemLabelRotation));
+      ctx.rotate(degRad(this.itemLabelRotation));
 
 
       if (this.debug) {
@@ -439,7 +433,7 @@ export class Wheel {
         ctx.beginPath();
         ctx.moveTo(alignAdjust, 0);
         ctx.lineTo(-this._labelMaxWidth + alignAdjust, 0);
-        ctx.strokeStyle = Constants.Debugging.labelBoundingBoxColor;
+        ctx.strokeStyle = Debugging.labelBoundingBoxColor;
         ctx.lineWidth = actualDebugLineWidth;
         ctx.stroke();
 
@@ -464,7 +458,7 @@ export class Wheel {
         const circleDiameter = this.getScaledNumber(2);
         ctx.beginPath();
         ctx.arc(0, 0, circleDiameter, 0, 2 * Math.PI);
-        ctx.fillStyle = Constants.Debugging.labelRadiusColor;
+        ctx.fillStyle = Debugging.labelRadiusColor;
         ctx.fill();
       }
 
@@ -486,7 +480,7 @@ export class Wheel {
       const lightnessPercent = (i / this._dragEvents.length) * 100;
       ctx.beginPath();
       ctx.arc(event.x, event.y, circleDiameter, 0, 2 * Math.PI);
-      ctx.fillStyle = `hsl(${Constants.Debugging.dragPointHue},100%,${lightnessPercent}%)`;
+      ctx.fillStyle = `hsl(${Debugging.dragPointHue},100%,${lightnessPercent}%)`;
       ctx.strokeStyle = '#000';
       ctx.lineWidth = lineWidth;
       ctx.fill();
@@ -570,7 +564,7 @@ export class Wheel {
    * A positive number will spin clockwise, a negative number will spin anti-clockwise.
    */
   spin(rotationSpeed = 0) {
-    if (!util.isNumber(rotationSpeed)) throw new Error('rotationSpeed must be a number');
+    if (!isNumber(rotationSpeed)) throw new Error('rotationSpeed must be a number');
     this._dragEvents = [];
     this.beginSpin(rotationSpeed, 'spin');
   }
@@ -584,8 +578,8 @@ export class Wheel {
    */
   spinTo(rotation = 0, duration = 0, easingFunction = null) {
 
-    if (!util.isNumber(rotation)) throw new Error('Error: rotation must be a number');
-    if (!util.isNumber(duration)) throw new Error('Error: duration must be a number');
+    if (!isNumber(rotation)) throw new Error('Error: rotation must be a number');
+    if (!isNumber(duration)) throw new Error('Error: duration must be a number');
 
     this.stop();
 
@@ -615,7 +609,7 @@ export class Wheel {
 
     const itemAngle = spinToCenter ? this.items[itemIndex].getCenterAngle() : this.items[itemIndex].getRandomAngle();
 
-    let newRotation = util.calcWheelRotationForTargetAngle(this.rotation, itemAngle - this._pointerAngle, direction);
+    let newRotation = calcWheelRotationForTargetAngle(this.rotation, itemAngle - this._pointerAngle, direction);
     newRotation += ((numberOfRevolutions * 360) * direction);
 
     this.animate(newRotation, duration, easingFunction);
@@ -629,7 +623,7 @@ export class Wheel {
     this._spinToEndRotation = newRotation;
     this._spinToTimeStart = performance.now();
     this._spinToTimeEnd = this._spinToTimeStart + duration;
-    this._spinToEasingFunction = easingFunction || util.easeSinOut;
+    this._spinToEasingFunction = easingFunction || easeSinOut;
     this.refresh();
   }
 
@@ -651,7 +645,7 @@ export class Wheel {
    * Return n scaled to the size of the canvas.
    */
   getScaledNumber(n) {
-     return (n / Constants.baseCanvasSize) * this._size;
+     return (n / baseCanvasSize) * this._size;
   }
 
   getActualPixelRatio() {
@@ -663,8 +657,8 @@ export class Wheel {
    */
   wheelHitTest(point = {x: 0, y: 0}) {
     if (this.canvas === null) return false;
-    const p = util.translateXYToElement(point, this.canvas, this.getActualPixelRatio());
-    return util.isPointInCircle(p, this._center.x, this._center.y, this._actualRadius);
+    const p = translateXYToElement(point, this.canvas, this.getActualPixelRatio());
+    return isPointInCircle(p, this._center.x, this._center.y, this._actualRadius);
   }
 
   /**
@@ -696,7 +690,7 @@ export class Wheel {
    * 0 is north.
    */
   getAngleFromCenter(point = {x: 0, y: 0}) {
-    return (util.getAngle(this._center.x, this._center.y, point.x, point.y) + 90) % 360;
+    return (getAngle(this._center.x, this._center.y, point.x, point.y) + 90) % 360;
   }
 
   /**
@@ -716,7 +710,7 @@ export class Wheel {
 
     for (const [i, a] of angles.entries()) {
 
-      if (!util.isAngleBetween(this._pointerAngle, a.start % 360, a.end % 360)) continue;
+      if (!isAngleBetween(this._pointerAngle, a.start % 360, a.end % 360)) continue;
 
       if (this._currentIndex === i) break;
 
@@ -814,7 +808,7 @@ export class Wheel {
     return this._borderColor;
   }
   set borderColor(val) {
-    this._borderColor = util.setProp({
+    this._borderColor = setProp({
       val,
       isValid: typeof val === 'string',
       errorMessage: 'Wheel.borderColor must be a string',
@@ -831,9 +825,9 @@ export class Wheel {
     return this._borderWidth;
   }
   set borderWidth(val) {
-    this._borderWidth = util.setProp({
+    this._borderWidth = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.borderWidth must be a number',
       defaultValue: Defaults.wheel.borderWidth,
     });
@@ -849,7 +843,7 @@ export class Wheel {
     return this._debug;
   }
   set debug(val) {
-    this._debug = util.setProp({
+    this._debug = setProp({
       val,
       isValid: typeof val === 'boolean',
       errorMessage: 'Wheel.debug must be a boolean',
@@ -867,7 +861,7 @@ export class Wheel {
     return this._image;
   }
   set image(val) {
-    this._image = util.setProp({
+    this._image = setProp({
       val,
       isValid: val instanceof HTMLImageElement || val === null,
       errorMessage: 'Wheel.image must be a HTMLImageElement or null',
@@ -885,7 +879,7 @@ export class Wheel {
     return this._isInteractive;
   }
   set isInteractive(val) {
-    this._isInteractive = util.setProp({
+    this._isInteractive = setProp({
       val,
       isValid: typeof val === 'boolean',
       errorMessage: 'Wheel.isInteractive must be a boolean',
@@ -904,7 +898,7 @@ export class Wheel {
     return this._itemBackgroundColors;
   }
   set itemBackgroundColors(val) {
-    this._itemBackgroundColors = util.setProp({
+    this._itemBackgroundColors = setProp({
       val,
       isValid: Array.isArray(val),
       errorMessage: 'Wheel.itemBackgroundColors must be an array',
@@ -922,10 +916,10 @@ export class Wheel {
     return this._itemLabelAlign;
   }
   set itemLabelAlign(val) {
-    this._itemLabelAlign = util.setProp({
+    this._itemLabelAlign = setProp({
       val,
-      isValid: typeof val === 'string' && (val === Constants.AlignText.left || val === Constants.AlignText.right || val === Constants.AlignText.center),
-      errorMessage: 'Wheel.itemLabelAlign must be one of Constants.AlignText',
+      isValid: typeof val === 'string' && (val === AlignText.left || val === AlignText.right || val === AlignText.center),
+      errorMessage: 'Wheel.itemLabelAlign must be one of AlignText',
       defaultValue: Defaults.wheel.itemLabelAlign,
     });
 
@@ -939,9 +933,9 @@ export class Wheel {
     return this._itemLabelBaselineOffset;
   }
   set itemLabelBaselineOffset(val) {
-    this._itemLabelBaselineOffset = util.setProp({
+    this._itemLabelBaselineOffset = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelBaselineOffset must be a number',
       defaultValue: Defaults.wheel.itemLabelBaselineOffset,
     });
@@ -958,7 +952,7 @@ export class Wheel {
     return this._itemLabelColors;
   }
   set itemLabelColors(val) {
-    this._itemLabelColors = util.setProp({
+    this._itemLabelColors = setProp({
       val,
       isValid: Array.isArray(val),
       errorMessage: 'Wheel.itemLabelColors must be an array',
@@ -976,7 +970,7 @@ export class Wheel {
     return this._itemLabelFont;
   }
   set itemLabelFont(val) {
-    this._itemLabelFont = util.setProp({
+    this._itemLabelFont = setProp({
       val,
       isValid: typeof val === 'string',
       errorMessage: 'Wheel.itemLabelFont must be a string',
@@ -993,9 +987,9 @@ export class Wheel {
     return this._itemLabelFontSizeMax;
   }
   set itemLabelFontSizeMax(val) {
-    this._itemLabelFontSizeMax = util.setProp({
+    this._itemLabelFontSizeMax = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelFontSizeMax must be a number',
       defaultValue: Defaults.wheel.itemLabelFontSizeMax,
     });
@@ -1011,9 +1005,9 @@ export class Wheel {
     return this._itemLabelRadius;
   }
   set itemLabelRadius(val) {
-    this._itemLabelRadius = util.setProp({
+    this._itemLabelRadius = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelRadius must be a number',
       defaultValue: Defaults.wheel.itemLabelRadius,
     });
@@ -1029,9 +1023,9 @@ export class Wheel {
     return this._itemLabelRadiusMax;
   }
   set itemLabelRadiusMax(val) {
-    this._itemLabelRadiusMax = util.setProp({
+    this._itemLabelRadiusMax = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelRadiusMax must be a number',
       defaultValue: Defaults.wheel.itemLabelRadiusMax,
     });
@@ -1047,9 +1041,9 @@ export class Wheel {
     return this._itemLabelRotation;
   }
   set itemLabelRotation(val) {
-    this._itemLabelRotation = util.setProp({
+    this._itemLabelRotation = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelRotation must be a number',
       defaultValue: Defaults.wheel.itemLabelRotation,
     });
@@ -1064,7 +1058,7 @@ export class Wheel {
     return this._itemLabelStrokeColor;
   }
   set itemLabelStrokeColor(val) {
-    this._itemLabelStrokeColor = util.setProp({
+    this._itemLabelStrokeColor = setProp({
       val,
       isValid: typeof val === 'string',
       errorMessage: 'Wheel.itemLabelStrokeColor must be a string',
@@ -1081,9 +1075,9 @@ export class Wheel {
     return this._itemLabelStrokeWidth;
   }
   set itemLabelStrokeWidth(val) {
-    this._itemLabelStrokeWidth = util.setProp({
+    this._itemLabelStrokeWidth = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.itemLabelStrokeWidth must be a number',
       defaultValue: Defaults.wheel.itemLabelStrokeWidth,
     });
@@ -1100,7 +1094,7 @@ export class Wheel {
     return this._items;
   }
   set items(val) {
-    this._items = util.setProp({
+    this._items = setProp({
       val,
       isValid: Array.isArray(val),
       errorMessage: 'Wheel.items must be an array of Items',
@@ -1126,7 +1120,7 @@ export class Wheel {
     return this._lineColor;
   }
   set lineColor(val) {
-    this._lineColor = util.setProp({
+    this._lineColor = setProp({
       val,
       isValid: typeof val === 'string',
       errorMessage: 'Wheel.lineColor must be a string',
@@ -1143,9 +1137,9 @@ export class Wheel {
     return this._lineWidth;
   }
   set lineWidth(val) {
-    this._lineWidth = util.setProp({
+    this._lineWidth = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.lineWidth must be a number',
       defaultValue: Defaults.wheel.lineWidth,
     });
@@ -1160,9 +1154,9 @@ export class Wheel {
     return this._offset;
   }
   set offset(val) {
-    this._offset = util.setProp({
+    this._offset = setProp({
       val,
-      isValid: util.isObject(val),
+      isValid: isObject(val),
       errorMessage: 'Wheel.offset must be an object',
       defaultValue: Defaults.wheel.offset,
     });
@@ -1177,7 +1171,7 @@ export class Wheel {
     return this._onCurrentIndexChange;
   }
   set onCurrentIndexChange(val) {
-    this._onCurrentIndexChange = util.setProp({
+    this._onCurrentIndexChange = setProp({
       val,
       isValid: typeof val === 'function' || val === null,
       errorMessage: 'Wheel.onCurrentIndexChange must be a function or null',
@@ -1192,7 +1186,7 @@ export class Wheel {
     return this._onRest;
   }
   set onRest(val) {
-    this._onRest = util.setProp({
+    this._onRest = setProp({
       val,
       isValid: typeof val === 'function' || val === null,
       errorMessage: 'Wheel.onRest must be a function or null',
@@ -1207,7 +1201,7 @@ export class Wheel {
     return this._onSpin;
   }
   set onSpin(val) {
-    this._onSpin = util.setProp({
+    this._onSpin = setProp({
       val,
       isValid: typeof val === 'function' || val === null,
       errorMessage: 'Wheel.onSpin must be a function or null',
@@ -1224,7 +1218,7 @@ export class Wheel {
     return this._overlayImage;
   }
   set overlayImage(val) {
-    this._overlayImage = util.setProp({
+    this._overlayImage = setProp({
       val,
       isValid: val instanceof HTMLImageElement || val === null,
       errorMessage: 'Wheel.overlayImage must be a HTMLImageElement or null',
@@ -1243,9 +1237,9 @@ export class Wheel {
     return this._pixelRatio;
   }
   set pixelRatio(val) {
-    this._pixelRatio = util.setProp({
+    this._pixelRatio = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.pixelRatio must be a number',
       defaultValue: Defaults.wheel.pixelRatio,
     });
@@ -1260,9 +1254,9 @@ export class Wheel {
     return this._pointerAngle;
   }
   set pointerAngle(val) {
-    this._pointerAngle = util.setProp({
+    this._pointerAngle = setProp({
       val,
-      isValid: util.isNumber(val) && val >= 0,
+      isValid: isNumber(val) && val >= 0,
       errorMessage: 'Wheel.pointerAngle must be a number between 0 and 360',
       defaultValue: Defaults.wheel.pointerAngle,
       action: () => val % 360,
@@ -1278,9 +1272,9 @@ export class Wheel {
     return this._radius;
   }
   set radius(val) {
-    this._radius = util.setProp({
+    this._radius = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.radius must be a number',
       defaultValue: Defaults.wheel.radius,
     });
@@ -1297,9 +1291,9 @@ export class Wheel {
     return this._rotation;
   }
   set rotation(val) {
-    this._rotation = util.setProp({
+    this._rotation = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.rotation must be a number',
       defaultValue: Defaults.wheel.rotation,
     });
@@ -1316,9 +1310,9 @@ export class Wheel {
     return this._rotationResistance;
   }
   set rotationResistance(val) {
-    this._rotationResistance = util.setProp({
+    this._rotationResistance = setProp({
       val,
-      isValid: util.isNumber(val),
+      isValid: isNumber(val),
       errorMessage: 'Wheel.rotationResistance must be a number',
       defaultValue: Defaults.wheel.rotationResistance,
     });
@@ -1340,9 +1334,9 @@ export class Wheel {
     return this._rotationSpeedMax;
   }
   set rotationSpeedMax(val) {
-    this._rotationSpeedMax = util.setProp({
+    this._rotationSpeedMax = setProp({
       val,
-      isValid: util.isNumber(val) && val >= 0,
+      isValid: isNumber(val) && val >= 0,
       errorMessage: 'Wheel.rotationSpeedMax must be a number >= 0',
       defaultValue: Defaults.wheel.rotationSpeedMax,
     });
@@ -1355,7 +1349,7 @@ export class Wheel {
 
     if (this.canvas === null) return;
 
-    const p = util.translateXYToElement(point, this.canvas, this.getActualPixelRatio());
+    const p = translateXYToElement(point, this.canvas, this.getActualPixelRatio());
 
     this.isDragging = true;
 
@@ -1376,12 +1370,12 @@ export class Wheel {
 
     if (this.canvas === null) return;
 
-    const p = util.translateXYToElement(point, this.canvas, this.getActualPixelRatio());
+    const p = translateXYToElement(point, this.canvas, this.getActualPixelRatio());
     const a = this.getAngleFromCenter(p);
 
     const lastDragPoint = this._dragEvents[0];
     const lastAngle = this.getAngleFromCenter(lastDragPoint);
-    const angleSinceLastMove = util.diffAngle(lastAngle, a);
+    const angleSinceLastMove = diffAngle(lastAngle, a);
 
     this._dragEvents.unshift({
       distance: angleSinceLastMove,
@@ -1390,7 +1384,7 @@ export class Wheel {
       now: performance.now(),
     });
 
-    // Retain max 40 drag events.
+    // Retain max 40 drag
     if (this.debug && this._dragEvents.length >= 40) this._dragEvents.pop();
 
     // Snap the wheel to the new rotation.
@@ -1428,12 +1422,12 @@ export class Wheel {
 
     if (dragDistance === 0) return;
 
-    this.beginSpin(dragDistance * (1000 / Constants.dragCapturePeriod), 'interact');
+    this.beginSpin(dragDistance * (1000 / dragCapturePeriod), 'interact');
 
   }
 
   isDragEventTooOld(now = 0, event = {}) {
-    return (now - event.now) > Constants.dragCapturePeriod;
+    return (now - event.now) > dragCapturePeriod;
   }
 
   raiseEvent_onCurrentIndexChange(data = {}) {

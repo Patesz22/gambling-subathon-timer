@@ -3,7 +3,7 @@
  * Example: `dateFormat (new Date (), "%Y-%m-%d %H:%M:%S")`
  * will return "2012-05-18 05:37:21".
  */
-export function dateFormat(date, format, utc = true) {
+function dateFormat(date, format, utc = true) {
   utc = utc ? 'getUTC' : 'get';
   return format.replace(/%[YmdHMS]/g, i => {
     if (i === '%Y') return date[utc + 'FullYear'](); // no leading zeros required
@@ -19,7 +19,7 @@ export function dateFormat(date, format, utc = true) {
   });
 }
 
-export async function loadFonts(fontNames = []) {
+async function loadFonts(fontNames = []) {
   // Fail silently if browser doesn't support font loading.
   if (!('fonts' in document)) return;
 
@@ -38,7 +38,7 @@ export async function loadFonts(fontNames = []) {
  * An error will be thrown if any image fails to load.
  * See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode
  */
-export async function loadImages(images = []) {
+async function loadImages(images = []) {
   const promises = [];
 
   for (const img of images) {
@@ -55,7 +55,7 @@ export async function loadImages(images = []) {
 /**
  * Return an array of getters and setters on the instance
  */
-export function getInstanceProperties(instance) {
+function getInstanceProperties(instance) {
   return {
     getters:
       Object.entries(
@@ -81,6 +81,10 @@ export function getInstanceProperties(instance) {
  * Wrapper for `setTimeout` that can be awaited.
  * Resolve after a certain duration (in milliseconds).
  */
-export async function delay(duration) {
+async function delay(duration) {
   return new Promise(resolve => setTimeout(resolve, duration));
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -13,7 +13,7 @@
  * @returns {{item: any, index: number}}
  */
 /* eslint-disable consistent-return */
-export function weightedRandom(items, weights, round)
+function weightedRandom(items, weights, round)
 {
 	const returnList = []
 	for (let x = 0; x < round; x++)

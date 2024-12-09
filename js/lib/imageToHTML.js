@@ -1,5 +1,3 @@
-import {loadImages} from '../../scripts/util.js';
-
 function initImage(obj, pName) {
 	if (!obj[pName]) return null;
 	const i = new Image();
@@ -8,7 +6,7 @@ function initImage(obj, pName) {
 	return i;
 }
 
-export async function imageToHTML(p) {
+async function imageToHTML(p) {
 	const images = [];
 	// Convert image urls into actual images:
 	images.push(initImage(p, 'overlayImage'));

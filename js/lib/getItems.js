@@ -41,3 +41,57 @@ function setCookie(name,value,days)
         }
         document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=Lax";
     }
+
+
+function getWeighted(count)
+    {
+        // console.log(count);
+        let prob = []
+        let items = []
+        let ret = []
+        // console.log(Object.keys(wheelItems).length)
+        for (let i = 1; i <= Object.keys(wheelItems).length; i++)
+            {
+                items.push(wheelItems[i]["label"])
+                prob.push(Number(wheelItems[i]["probability"]))
+            }
+
+        // console.log(items, prob)
+        ret.push({"label": weightedRandom(items, prob, 1)[0], "weight": getRandomFloat(wheel_min_area, wheel_max_area)})
+        // console.log(ret)
+
+        let choice = RandomChoice(items, count-1);
+        console.log(count, choice);
+        for (let i = 0; i < choice.length; i++)
+            {
+                ret.push({"label": choice[i], "weight": getRandomFloat(wheel_min_area, wheel_max_area)});
+            }
+
+        // console.log(ret)
+        return ret;
+    }
+
+
+function getFullRandom(count)
+    {
+        // console.log(count);
+        let prob = []
+        let items = []
+        let ret = []
+        // console.log(Object.keys(wheelItems).length)
+        for (let i = 1; i <= Object.keys(wheelItems).length; i++)
+            {
+                items.push(wheelItems[i]["label"])
+                prob.push(Number(wheelItems[i]["probability"]))
+            }
+
+        let choice = RandomChoice(items, count);
+        // console.log(count, choice);
+        for (let i = 0; i < choice.length; i++)
+            {
+                ret.push({"label": choice[i], "weight": getRandomFloat(wheel_min_area, wheel_max_area)});
+            }
+
+        // console.log(ret)
+        return ret;
+    }
