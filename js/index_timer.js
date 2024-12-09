@@ -1,30 +1,43 @@
-import * as config from '../config/config.js'
-import timeFunc from './lib/timeFunc.js'
-
-// let config = require('../config/config.js');
-// let timeFunc = require('./lib/timeFunc.js');
-
-// Creating new web worker
-const worker = new Worker('js/api/twitch.js');
-
-// Response
-worker.onmessage = function (e)
-{
-    console.log(e.data);
-};
-
 const timeText = document.getElementById("timeText");
 
 let endingTime = new Date(Date.now());
-endingTime = timeFunc.addHours(endingTime, config.initialHours);
-endingTime = timeFunc.addMinutes(endingTime, config.initialMinutes);
-endingTime = timeFunc.addSeconds(endingTime, config.initialSeconds);
+let initialHours = getCookie("initHours")
+if (initialHours)
+{
+    endingTime = timeFunc.addHours(endingTime, Number(initialHours));
+}
+else
+{
+    endingTime = timeFunc.addHours(endingTime, _initialHours);
+}
+
+let initialMinutes = getCookie("initMin")
+if (initialMinutes)
+    {
+        endingTime = timeFunc.addMinutes(endingTime, Number(initialMinutes));
+    }
+else
+    {
+        endingTime = timeFunc.addMinutes(endingTime, _initialMinutes);
+    }
+
+let initialSeconds = getCookie("initSec")
+if (initialSeconds)
+    {
+        endingTime = timeFunc.addSeconds(endingTime, Number(initialSeconds));
+    }
+else
+    {
+        endingTime = timeFunc.addSeconds(endingTime, _initialSeconds);
+    }
+
 
 let users = [];
 let time;
+let countdownEnded = false
 let saveTime = new Date(Date.now());
 
-export const getNextTime = () =>
+const getNextTime = () =>
 {
     let currentTime = new Date(Date.now());
     let differenceTime = endingTime - currentTime;
@@ -32,54 +45,37 @@ export const getNextTime = () =>
     if (differenceTime <= 0)
     {
         clearInterval(countdownUpdater);
-        config.countdownEnded = true;
+        countdownEnded = true;
         time = "00:00:00";
     }
     timeText.innerText = time;
 
     // console.log(Date.now() - saveTime)
-    if ((Date.now() - saveTime) >= config.saveInterval)
+    if ((Date.now() - saveTime) >= saveInterval)
     {
-        // console.log(timeFunc.getHours(differenceTime))
-        // console.log(timeFunc.getMinutes(differenceTime))
-        // console.log(timeFunc.getSeconds(differenceTime))
-        fetch(`http://${config.server_bind_address}:${config.server_port}/updateTimeConfig`,
-            {
-            method: "POST",
-            // body: {
-            //     "hours": timeFunc.getHours(differenceTime),
-            //     "minutes": timeFunc.getMinutes(differenceTime),
-            //     "seconds": timeFunc.getSeconds(differenceTime)
-            // },
-            body: JSON.stringify(
-                {
-                hours: timeFunc.getHours(differenceTime),
-                minutes: timeFunc.getMinutes(differenceTime),
-                seconds: timeFunc.getSeconds(differenceTime)
-                }),
-            headers:
-                {
-                "Content-Type": "application/json"
-            }
-        });
+        setCookie("initHours", timeFunc.getHours(differenceTime), 14)
+        setCookie("initMin", timeFunc.getMinutes(differenceTime), 14)
+        setCookie("initSec", timeFunc.getSeconds(differenceTime), 14)
+
         saveTime = new Date(Date.now());
+
     }
 
 };
 
 let countdownUpdater = setInterval(() =>
-{
-    getNextTime();
-}, 100);
+    {
+        getNextTime();
+    }, 100);
 
 
-export const addTime = async (time, s) =>
+const addTime = async (time, s) =>
 {
     endingTime = timeFunc.addSeconds(time, s);
 
-	if (!(config.maxHours === 0 && config.maxMinutes === 0 && config.maxSeconds === 0))
+	if (!(maxHours === 0 && maxMinutes === 0 && maxSeconds === 0))
     {
-		let maxTime = timeFunc.getMilliseconds(new Date(Date.now()), config.maxHours, config.maxMinutes, config.maxSeconds);
+		let maxTime = timeFunc.getMilliseconds(new Date(Date.now()), maxHours, maxMinutes, maxSeconds);
 		if (endingTime.getTime() > maxTime.getTime()) endingTime = maxTime;
 	}
 

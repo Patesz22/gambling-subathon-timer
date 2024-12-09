@@ -1,4 +1,4 @@
-export default {
+timeFunc = {
     addHours(time, h) {
         time.setTime(time.getTime() + (h * 60 * 60 * 1000));
         return time;

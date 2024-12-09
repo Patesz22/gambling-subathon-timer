@@ -2,18 +2,19 @@ import express from "express";
 import cors from "cors";
 import data from "./config/items_wheel.json" with { type: "json" };
 import server_conf from "./config/server_config.json" with { type: "json" };
-import time_data from "./config/init_time.json" with { type: "json" };
 import {weightedRandom} from './js/lib/getRandomWinner.js';
 import {RandomChoice} from './js/lib/randomChoice.js';
 import {getRandomFloat} from './src/util.js';
 import bodyParser from 'body-parser';
 import * as fs from "fs";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const tmi = require('tmi.js');
 
 // const express = require('express');
 // const cors = require('cors');
 // const data = require('./config/items_wheel.json');
 // const server_conf = require('./config/server_config.json');
-// const time_data = require('./config/init_time.json');
 // const randomWinner = require('./js/lib/getRandomWinner.js');
 // const randomChoice = require('./js/lib/randomChoice.js');
 // const randomFloat = require('./src/util.js');
@@ -29,9 +30,6 @@ console.log(`http://${server_conf["host"]}:${server_conf["port"]}`)
 
 app.use(cors());
 app.use(bodyParser.json())
-// app.get('/', (req, res) => {
-// 	res.json(sample);
-// });
 
 app.get('/winner', (req, res) =>
 {
@@ -73,52 +71,8 @@ app.get('/filleritems', (req, res) =>
 	console.log("\n");
 });
 
-app.get('/initHours', (req, res) =>
-{
-	console.log(time_data_writeable["hours"])
-	res.json(Number(time_data_writeable["hours"]));
-});
+// todo: fix this scuff
 
-app.get('/initMin', (req, res) =>
-{
-	console.log(time_data_writeable["minutes"])
-	res.json(Number(time_data_writeable["minutes"]));
-});
 
-app.get('/initSec', (req, res) =>
-{
-	console.log(time_data_writeable["seconds"])
-	res.json(Number(time_data_writeable["seconds"]));
-});
 
-app.post('/updateTimeConfig', (req, res) =>
-{
-	let reqdata =
-		{
-		"hours": req.body["hours"],
-		"minutes": req.body["minutes"],
-		"seconds": req.body["seconds"]
-		}
-
-	console.log(req.body);
-	// console.log(reqdata["hours"], reqdata["minutes"], reqdata["seconds"]);
-	if (reqdata["hours"] === undefined || reqdata["minutes"] === undefined || reqdata["seconds"] === undefined)
-	{
-		res.sendStatus(400)
-		throw new Error("Invalid data")
-	}
-
-	try
-	{
-		fs.writeFileSync("./config/init_time.json", JSON.stringify(reqdata));
-		time_data_writeable = reqdata
-		res.sendStatus(200)
-	}
-	catch (e)
-	{
-		console.error(e);
-		res.sendStatus(500)
-	}
-
-});
 

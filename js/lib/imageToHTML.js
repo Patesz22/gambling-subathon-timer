@@ -1,4 +1,4 @@
-import {loadImages} from '../../../scripts/util.js';
+import {loadImages} from '../../scripts/util.js';
 
 function initImage(obj, pName) {
 	if (!obj[pName]) return null;

@@ -1,7 +1,7 @@
 /**
  * Get a random integer between `min` (inclusive) and `max` (exclusive).
  */
-export function getRandomInt(min = 0, max = 0) {
+function getRandomInt(min = 0, max = 0) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
@@ -11,14 +11,14 @@ export function getRandomInt(min = 0, max = 0) {
  * Get a random number between `min` (inclusive) and `max` (inclusive).
  * Control the number of decimal places with `round`.
  */
-export function getRandomFloat(min = 0, max = 0, round = 14) {
+function getRandomFloat(min = 0, max = 0, round = 14) {
   return parseFloat((Math.random() * (max - min) + min).toFixed(round));
 }
 
 /**
  * Convert degrees to radians.
  */
-export function degRad(degrees = 0) {
+function degRad(degrees = 0) {
   return degrees * Math.PI / 180;
 }
 
@@ -27,7 +27,7 @@ export function degRad(degrees = 0) {
  * Example: `(0, 359, 1) == true`
  * Example: `(0, 1, 2) == false`
  */
-export function isAngleBetween(angle, arcStart, arcEnd) {
+function isAngleBetween(angle, arcStart, arcEnd) {
   if (arcStart < arcEnd) return arcStart <= angle && angle < arcEnd;
   return arcStart <= angle || angle < arcEnd;
 }
@@ -38,7 +38,7 @@ export function isAngleBetween(angle, arcStart, arcEnd) {
  * Truthy values that are not Numbers count as 1.
  * Return 0 if the array is empty.
  */
-export function aveArray(array = []) {
+function aveArray(array = []) {
   let sum = 0;
   for (const val of array) {
     if (val) sum += ((typeof val === 'number') ? val : 1);
@@ -50,7 +50,7 @@ export function aveArray(array = []) {
  * Calculate the largest font size that `text` can have without exceeding `maxWidth`.
  * Won't work unless `fontFamily` has been loaded.
  */
-export function getFontSizeToFit(text, fontFamily, maxWidth, canvasContext) {
+function getFontSizeToFit(text, fontFamily, maxWidth, canvasContext) {
   canvasContext.save();
   canvasContext.font = `1px ${fontFamily}`;
   const w = canvasContext.measureText(text).width;
@@ -63,7 +63,7 @@ export function getFontSizeToFit(text, fontFamily, maxWidth, canvasContext) {
  * cx, cy is circle center.
  * radius is circle radius.
  */
-export function isPointInCircle(point = {x: 0, y: 0}, cx, cy, radius) {
+function isPointInCircle(point = {x: 0, y: 0}, cx, cy, radius) {
   const distanceSquared = ((point.x - cx) ** 2) + ((point.y - cy) ** 2);
   return distanceSquared <= (radius ** 2);
 }
@@ -71,7 +71,7 @@ export function isPointInCircle(point = {x: 0, y: 0}, cx, cy, radius) {
 /**
  * Translate the given point from the viewport's coordinate space to the element's coordinate space.
  */
-export function translateXYToElement(point = {x: 0, y: 0}, element = {}, devicePixelRatio = 1) {
+function translateXYToElement(point = {x: 0, y: 0}, element = {}, devicePixelRatio = 1) {
   const rect = element.getBoundingClientRect();
   return {
     x: (point.x - rect.left) * devicePixelRatio,
@@ -79,14 +79,14 @@ export function translateXYToElement(point = {x: 0, y: 0}, element = {}, deviceP
   };
 }
 
-export function getMouseButtonsPressed(event = {}) {
+function getMouseButtonsPressed(event = {}) {
   return [1, 2, 4, 8, 16].filter(i => event.buttons & i);
 }
 
 /**
  * Source: https://stackoverflow.com/a/47653643/737393
  */
-export function getAngle(originX, originY, targetX, targetY) {
+function getAngle(originX, originY, targetX, targetY) {
     const dx = originX - targetX;
     const dy = originY - targetY;
 
@@ -100,7 +100,7 @@ export function getAngle(originX, originY, targetX, targetY) {
 /**
  * Return the distance between two points.
  */
-export function getDistanceBetweenPoints(point1 = {x: 0, y: 0}, point2 = {x: 0, y: 0}) {
+function getDistanceBetweenPoints(point1 = {x: 0, y: 0}, point2 = {x: 0, y: 0}) {
   return Math.hypot(point2.x - point1.x, point2.y - point1.y);
 }
 
@@ -108,7 +108,7 @@ export function getDistanceBetweenPoints(point1 = {x: 0, y: 0}, point2 = {x: 0, 
  * Add two angles together.
  * Return a positive number between 0 and 359.9999.
  */
-export function addAngle(a = 0, b = 0) {
+function addAngle(a = 0, b = 0) {
   const sum = a + b;
   let result;
 
@@ -126,7 +126,7 @@ export function addAngle(a = 0, b = 0) {
  * Return the shortest difference (in degrees) between two angles.
  * Only accept angles between 0 and 360.
  */
-export function diffAngle(a = 0, b = 0) {
+function diffAngle(a = 0, b = 0) {
   const offsetFrom180 = 180 - b;
   const aWithOffset = addAngle(a, offsetFrom180);
   return 180 - aWithOffset;
@@ -137,7 +137,7 @@ export function diffAngle(a = 0, b = 0) {
  * targetAngle = a value between 0 and 360.
  * direction = the direction the wheel can spin. 1 for clockwise, -1 for antiClockwise.
  */
-export function calcWheelRotationForTargetAngle(currentRotation = 0, targetAngle = 0, direction = 1) {
+function calcWheelRotationForTargetAngle(currentRotation = 0, targetAngle = 0, direction = 1) {
 
   let angle = ((currentRotation % 360) + targetAngle) % 360;
 
@@ -153,15 +153,15 @@ export function calcWheelRotationForTargetAngle(currentRotation = 0, targetAngle
   return currentRotation + angle;
 }
 
-export function isObject(v) {
+function isObject(v) {
   return typeof v === 'object' && !Array.isArray(v) && v !== null;
 }
 
-export function isNumber(n) {
+function isNumber(n) {
   return typeof n === 'number' && !Number.isNaN(n);
 }
 
-export function setProp({val, isValid, errorMessage, defaultValue, action = null}) {
+function setProp({val, isValid, errorMessage, defaultValue, action = null}) {
   if (isValid) {
     return (action) ? action() : val;
   } else if (val === undefined) {
@@ -170,18 +170,18 @@ export function setProp({val, isValid, errorMessage, defaultValue, action = null
   throw new Error(errorMessage);
 }
 
-export function fixFloat(f = 0) {
+function fixFloat(f = 0) {
   return Number(f.toFixed(9));
 }
 
 /**
- * Easing export function.
+ * Easing function.
  */
-export function easeSinOut(n) {
+function easeSinOut(n) {
   return Math.sin((n * Math.PI) / 2);
 }
 
-export function getResizeObserver(element = {}, callBack = {}) {
+function getResizeObserver(element = {}, callBack = {}) {
 
   if (window.ResizeObserver) {
 
