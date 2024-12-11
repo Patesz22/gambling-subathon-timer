@@ -13,3 +13,4 @@ const logMessage = (module, message) => {
 const logObject = (module, object) => {
     console.log(`[${module}]: `, object);
 };
+

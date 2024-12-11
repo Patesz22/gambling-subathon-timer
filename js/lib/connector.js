@@ -1,0 +1,1 @@
+setTimeout(initQueue, 1000);

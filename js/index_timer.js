@@ -1,4 +1,6 @@
 const timeText = document.getElementById("timeText");
+const bc = new BroadcastChannel("SubChannel");
+const st = new BroadcastChannel("SendTime");
 
 let endingTime = new Date(Date.now());
 let initialHours = getCookie("initHours")
@@ -92,6 +94,11 @@ const addTime = async (time, s) =>
     addedTime.style.opacity = "0";
     await sleep(500);
     addedTime.remove();
+};
+
+st.onmessage = (event) => {
+    console.log(event["data"]);
+    addTime(endingTime, 10)
 };
 
 

@@ -1,15 +1,7 @@
-body, body * {
-    padding: 0;
-    margin: 0;
-    font-family: 'Manrope', sans-serif;
-}
-
 body {
     width: 100vw;
     height: 100vh;
 }
-
-
 
 :root {
     --background-color: #f7fff7;
@@ -20,7 +12,7 @@ body {
 
 
 #container {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -29,6 +21,9 @@ body {
     width: 500px;
     height: 180px;
     border-radius: 30px;
+    padding: 0;
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
 }
 
 #textDiv {
@@ -75,4 +70,5 @@ canvas {
     color: var(--background-color);
     text-shadow: 0 0 1.5rem var(--text-color);
     transition: top 1s ease-out, opacity .5s ease-out;
+    font-family: 'Manrope', sans-serif;
 }
