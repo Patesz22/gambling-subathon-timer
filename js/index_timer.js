@@ -81,24 +81,43 @@ const addTime = async (time, s) =>
 		if (endingTime.getTime() > maxTime.getTime()) endingTime = maxTime;
 	}
 
-    let addedTime = document.createElement("p");
-    addedTime.classList = "addedTime";
-    addedTime.innerText = `+${s}s`;
-    document.body.appendChild(addedTime);
-    addedTime.style.display = "block";
-    await sleep(50);
-    addedTime.style.left = `${randomInRange(35, 65)}%`;
-    addedTime.style.top = `${randomInRange(15, 40)}%`;
-    addedTime.style.opacity = "1";
-    await sleep(2500);
-    addedTime.style.opacity = "0";
-    await sleep(500);
-    addedTime.remove();
+    if (s >= 0)
+    {
+        let addedTime = document.createElement("p");
+        addedTime.classList = "addedTime";
+        addedTime.innerText = `+${s}s`;
+        document.body.appendChild(addedTime);
+        addedTime.style.display = "block";
+        await sleep(50);
+        addedTime.style.left = `${randomInRange(35, 65)}%`;
+        addedTime.style.top = `${randomInRange(15, 40)}%`;
+        addedTime.style.opacity = "1";
+        await sleep(2500);
+        addedTime.style.opacity = "0";
+        await sleep(500);
+        addedTime.remove();
+    }
+    else {
+        let addedTime = document.createElement("p");
+        addedTime.classList = "addedTime";
+        addedTime.innerText = `${s}s`;
+        document.body.appendChild(addedTime);
+        addedTime.style.display = "block";
+        await sleep(50);
+        addedTime.style.left = `${randomInRange(35, 65)}%`;
+        addedTime.style.top = `${randomInRange(15, 40)}%`;
+        addedTime.style.opacity = "1";
+        await sleep(2500);
+        addedTime.style.opacity = "0";
+        await sleep(500);
+        addedTime.remove();
+    }
+
 };
 
 st.onmessage = (event) => {
-    console.log(event["data"]);
-    addTime(endingTime, 10)
+    console.log(event);
+    addTime(endingTime, event["data"])
 };
 
 

@@ -23,9 +23,15 @@ function setItem()
 
 bc.onmessage = async (event) =>
 	{
-		console.log(event)
-		console.log(event["data"]);
-		document.getElementById("currentSpinning").textContent = event["data"];
+		console.log("In bc message")
+		// console.log(event);
+		// console.log(event["data"]);
+		let calctime = String(event["data"]).split(":-?")[1]
+		let currname = String(event["data"]).split(":-?")[0]
+		document.getElementById("currentSpinning").textContent = currname;
+
+		console.log(calctime)
+		console.log(currname)
 
 		const props = {
 			debug: false, // So we can see pointer angle.
@@ -66,13 +72,18 @@ bc.onmessage = async (event) =>
 		async function onFinish()
 			{
 				await sleep(100);
+				console.log("Spinresults:")
 				const spinresult = props["items"][wheel.getCurrentIndex()]
-				document.getElementById("currentSpinning").textContent = `${event["data"]}: ${spinresult["label"]}`;
+				document.getElementById("currentSpinning").textContent = `${currname}: ${spinresult["label"]}`;
 				console.log(spinresult)
-				st.postMessage(spinresult)
+				let num = parseInt(spinresult["label"].split("%")[0])/100;
+				console.log(num)
+				let rettime = (calctime - (calctime - num)).toFixed(2);
+				console.log(rettime)
+				st.postMessage((rettime*calctime).toFixed(2));
 				console.log("Spinresult sent")
 				await sleep(wheel_result_delay);
-				console.log("Aferdelay done")
+				console.log("Afterdelay done")
 				document.getElementById("currentSpinning").textContent = "";
 				wheel.remove()
 				console.log("Wheel removed")
