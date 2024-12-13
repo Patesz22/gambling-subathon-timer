@@ -4,7 +4,7 @@ Subathon timer with a configurable gambling wheel
 > [!WARNING]  
 > Currently only twitch integration works for now
 
-[<video src='/img/demo_video.mov'></video>](https://github.com/user-attachments/assets/e5079fc6-b94e-4500-a35e-806cbd54257d)
+https://github.com/user-attachments/assets/40d59454-a3e8-46fd-bb68-30fd473cc415
 
 Wheel from **[Spin-wheel](https://github.com/CrazyTim/spin-wheel)**
 
