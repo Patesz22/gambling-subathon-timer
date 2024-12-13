@@ -10,11 +10,12 @@ var _initialSeconds = 0
 // DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //
 
 // Twitch
-var twitch_channel_name = ""; // Which channel to join
+var twitch_channel_name = "shoomimi"; // Which channel to join
 
-var streamlabs_token = ""
-var streamelements_token = ""
-var streamloots_token = ""
+
+var streamlabs_token = "" // WIP
+var streamelements_token = "" // WIP
+var streamloots_token = "" // WIP
 // DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //// DO NOT SHARE //
 
 
