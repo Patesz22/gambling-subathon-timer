@@ -2,7 +2,7 @@
 Subathon timer with a configurable gambling wheel
 
 > [!WARNING]  
-> Currently WIP
+> Currently only twitch integration works for now
 
 [<video src='/img/demo_video.mov'></video>](https://github.com/user-attachments/assets/e5079fc6-b94e-4500-a35e-806cbd54257d)
 
