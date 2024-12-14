@@ -23,8 +23,6 @@ function setItem()
 
 bc.onmessage = async (event) =>
 	{
-		// console.log(event);
-		// console.log(event["data"]);
 		let calctime = String(event["data"]).split(":-?")[1]
 		let currname = String(event["data"]).split(":-?")[0]
 		document.getElementById("currentSpinning").textContent = currname;
@@ -52,6 +50,7 @@ bc.onmessage = async (event) =>
 		await imageToHTML(props)
 		const container = document.querySelector('.wheel-wrapper');
 		const wheel = new Wheel(container, props);
+		document.getElementById("img-center").src = wheel_center_img
 
 		wheel.rotation = getRandomInt(0, 360);
 		wheel.isInteractive = false;
@@ -75,23 +74,15 @@ bc.onmessage = async (event) =>
 		async function onFinish()
 			{
 				await sleep(100);
-				console.log("Spinresults:")
 				const spinresult = props["items"][wheel.getCurrentIndex()]
 				document.getElementById("currentSpinning").textContent = `${currname}: ${spinresult["label"]}`;
-				document.getElementById("img-center").src = wheel_center_img
-				console.log(spinresult)
 				let num = parseInt(spinresult["label"].split("%")[0])/100;
-				console.log(num)
 				let rettime = (calctime - (calctime - num)).toFixed(2);
-				console.log(rettime)
 				st.postMessage((rettime*calctime).toFixed(2));
-				console.log("Spinresult sent")
 				await sleep(wheel_result_delay);
-				console.log("Afterdelay done")
 				document.getElementById("currentSpinning").textContent = "";
 				document.getElementById("img-center").src = "./img/blank.png"
 				wheel.remove()
-				console.log("Wheel removed")
 			}
 
 	}

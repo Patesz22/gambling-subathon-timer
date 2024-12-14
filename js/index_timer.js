@@ -116,7 +116,6 @@ const addTime = async (time, s) =>
 };
 
 st.onmessage = (event) => {
-    console.log(event);
     addTime(endingTime, event["data"])
 };
 

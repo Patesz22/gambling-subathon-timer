@@ -402,14 +402,14 @@ if (twitch_channel_name !== "") {
     //     let time = 60;
     //     if (userstate['display-name'] !== "")
     //         {
-    //             // console.log("Twitch name added: " + userstate['display-name'])
+    //             console.log("Twitch name added: " + userstate['display-name'])
     //             inarray_t.unshift(`${userstate['display-name']}:-?${time}`)
     //
     //             addTime(endingTime, time)
     //             setCookie("toSpin", inarray_t.toString(), 14)
-    //             // console.log("Twitch Current cookie: ")
-    //             // console.log(inarray_t)
-    //             // console.log(message)
+    //             console.log("Twitch Current cookie: ")
+    //             console.log(inarray_t)
+    //             console.log(message)
     //         }
     //
     // });
