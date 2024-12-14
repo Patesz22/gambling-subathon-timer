@@ -23,21 +23,15 @@ function setItem()
 
 bc.onmessage = async (event) =>
 	{
-		console.log("In bc message")
 		// console.log(event);
 		// console.log(event["data"]);
 		let calctime = String(event["data"]).split(":-?")[1]
 		let currname = String(event["data"]).split(":-?")[0]
 		document.getElementById("currentSpinning").textContent = currname;
 
-		console.log(calctime)
-		console.log(currname)
-
 		const props = {
 			debug: false, // So we can see pointer angle.
-			overlayImage: './img/OverlayDink.svg',
-			overlayImage_frame2: './img/OverlayDink.svg',
-			// image: './img/neurodink_original.webp', // todo: custom images based on rarity
+			overlayImage: './img/example-0-overlay.svg',
 			rotationResistance: -1,
 			radius: 0.84,
 			rotationSpeedMax: 5000,
@@ -64,8 +58,17 @@ bc.onmessage = async (event) =>
 		wheel.rotationResistance = wheel_spin_resistance
 
 		await sleep(wheel_start_delay);
-		// wheel.spinToItem(0, 5000, false, 2, 1);
-		wheel.spin(wheel_spin_speed)
+		switch (wheelpick)
+			{
+				case 'weighted':
+					wheel.spinToItem(0, wheel_spin_time, false, wheel_num_of_revs, 1);
+					break;
+
+				case 'full random':
+					wheel.spin(wheel_spin_speed);
+					break;
+
+			}
 
 		wheel.onRest = await onFinish;
 
@@ -75,6 +78,7 @@ bc.onmessage = async (event) =>
 				console.log("Spinresults:")
 				const spinresult = props["items"][wheel.getCurrentIndex()]
 				document.getElementById("currentSpinning").textContent = `${currname}: ${spinresult["label"]}`;
+				document.getElementById("img-center").src = wheel_center_img
 				console.log(spinresult)
 				let num = parseInt(spinresult["label"].split("%")[0])/100;
 				console.log(num)
@@ -85,6 +89,7 @@ bc.onmessage = async (event) =>
 				await sleep(wheel_result_delay);
 				console.log("Afterdelay done")
 				document.getElementById("currentSpinning").textContent = "";
+				document.getElementById("img-center").src = "./img/blank.png"
 				wheel.remove()
 				console.log("Wheel removed")
 			}
