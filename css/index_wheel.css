@@ -36,6 +36,15 @@ body {
 }
 
 
+#img-center {
+  position: fixed;
+  top: 34%;
+  left: 46%;
+  height: 64px;
+  width: 64px;
+
+}
+
 #currentSpinning {
   position: relative;
   height: 25%;
