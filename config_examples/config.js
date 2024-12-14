@@ -99,7 +99,7 @@ var seconds_added_per_chests = 30
 
 
 var wheelpick = "full random"
-// var wheelpick = "weighted"
+// var wheelpick = "weighted" // change wheel_spin_time
 
 
 // When to spin the wheel
@@ -126,13 +126,15 @@ let wheel_max_area = 0.50
 // Wheel spinning properties (only applies if "full random")
 let wheel_spin_speed = 3600 // How many rotations per sec (1 rotation is 360)
 let wheel_spin_resistance = -600 // How many to subtract form spin_speed per sec
-
+let wheel_spin_time = 5000 // Only applies when "weighted" // How long does the wheel spin for
+let wheel_num_of_revs = 2 // Only applies when "weighted" // How many times the wheel does a 360 spin before stopping
 
 // Wheel colors
 // Colors can be changed inside the .css files
 
 // The number of colors has to match the max number in wheel_count_items
 let wheel_colors = ['#ffc93c', '#66bfbf', '#a2d5f2', '#4543ef', '#ef7b07', '#82e273', '#ff0bfe']
+let wheel_center_img = "./img/NeuroKuru.gif" // Changes the png/jpg/gif at the center of the wheel
 
 
 // Wheel timers
