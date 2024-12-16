@@ -134,7 +134,8 @@ let wheel_num_of_revs = 2 // Only applies when "weighted" // How many times the 
 
 // The number of colors has to match the max number in wheel_count_items
 let wheel_colors = ['#ffc93c', '#66bfbf', '#a2d5f2', '#4543ef', '#ef7b07', '#82e273', '#ff0bfe']
-let wheel_center_img = "./img/NeuroKuru.gif" // Changes the png/jpg/gif at the center of the wheel
+let wheel_random_center_img = false // Decides whether the center img if randomized or not
+let wheel_center_img = ["./img/NeuroKuru.gif", ""] // Changes the png/jpg/gif at the center of the wheel, in an array
 
 
 // Wheel timers

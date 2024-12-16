@@ -130,3 +130,13 @@ async function initQueue()
             }
         setTimeout(initQueue, 1000);
     }
+
+function getCenterImage()
+    {
+        if (wheel_random_center_img)
+            {
+                return wheel_center_img[randomInRange(0, wheel_random_center_img.length - 1)];
+            }
+
+        else return wheel_random_center_img[0];
+    }

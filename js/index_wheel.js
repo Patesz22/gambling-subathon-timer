@@ -50,7 +50,7 @@ bc.onmessage = async (event) =>
 		await imageToHTML(props)
 		const container = document.querySelector('.wheel-wrapper');
 		const wheel = new Wheel(container, props);
-		document.getElementById("img-center").src = wheel_center_img
+		document.getElementById("img-center").src = getCenterImage();
 
 		wheel.rotation = getRandomInt(0, 360);
 		wheel.isInteractive = false;
