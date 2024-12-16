@@ -38,25 +38,29 @@ if (twitch_channel_name !== "") {
                     {
                         case "Prime":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_sub_prime}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_sub_prime);
                             break;
 
                         case "1000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_sub_tier1}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 1)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_sub_tier1);
                             break;
 
                         case "2000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_sub_tier2}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 2)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_sub_tier2);
                             break;
 
                         case "3000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_sub_tier3}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 3)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_sub_tier3);
                             break;
 
@@ -96,22 +100,26 @@ if (twitch_channel_name !== "") {
                     {
                         case "Prime":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_resub_prime}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_resub_prime);
                             break;
                         case "1000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_resub_tier1}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 1)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_resub_tier1);
                             break;
                         case "2000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_resub_tier2}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 2)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_resub_tier2);
                             break;
                         case "3000":
                             inarray_t.unshift(`${username}:-?${seconds_added_per_resub_tier3}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_sub_tier <= 3)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_resub_tier3);
                             break;
                     }
@@ -221,7 +229,8 @@ if (twitch_channel_name !== "") {
                                     time += seconds_added_per_giftsub_prime
                                 }
                             inarray_t.unshift(`${username}:-?${time}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_tier1_gifted <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_giftsub_prime * time);
                             break;
 
@@ -232,7 +241,8 @@ if (twitch_channel_name !== "") {
                                     time += seconds_added_per_giftsub_tier1
                                 }
                             inarray_t.unshift(`${username}:-?${time}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_tier1_gifted <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_giftsub_tier1 * time);
                             break;
 
@@ -243,7 +253,8 @@ if (twitch_channel_name !== "") {
                                     time += seconds_added_per_giftsub_tier2
                                 }
                             inarray_t.unshift(`${username}:-?${time}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_tier2_gifted <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_giftsub_tier2 * time);
                             break;
 
@@ -254,7 +265,8 @@ if (twitch_channel_name !== "") {
                                     time += seconds_added_per_giftsub_tier3
                                 }
                             inarray_t.unshift(`${username}:-?${time}`)
-                            setCookie("toSpin", inarray_t.toString(), 14)
+                            if (min_tier3_gifted <= 0)
+                                {setCookie("toSpin", inarray_t.toString(), 14)}
                             addTime(endingTime, seconds_added_per_giftsub_tier3 * time);
                             break;
                     }
@@ -367,7 +379,8 @@ if (twitch_channel_name !== "") {
                 let times = Math.floor(userstate.bits/min_amount_of_bits);
                 time += seconds_added_per_bits * times
                 inarray_t.unshift(`${userstate['display-name']}:-?${time}`)
-                setCookie("toSpin", inarray_t.toString(), 14)
+                if (min_bit_amount <= userstate.bits)
+                    {setCookie("toSpin", inarray_t.toString(), 14)}
                 addTime(endingTime, seconds_added_per_bits * time);
                 // if (!users.includes(userstate['display-name']))
                 // {

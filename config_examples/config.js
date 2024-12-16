@@ -104,7 +104,7 @@ var wheelpick = "full random"
 
 // When to spin the wheel
 // Prime sub = 0 | tier 1 sub = 1 | tier 2 sub = 2 | tier 3 sub = 3 //
-let min_sub_tier = 2 // The wheel will spin at the chosen tier + all of the above tiers
+let min_sub_tier = 0 // The wheel will spin at the chosen tier + all of the above tiers
 let min_bit_amount = 1000 // The wheel will spin at or above this amount
 let min_tier1_gifted = 20 // The wheel will spin at or above this amount
 let min_tier2_gifted = 10 // The wheel will spin at or above this amount
