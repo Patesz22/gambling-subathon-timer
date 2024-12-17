@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/b5680c0a-6a4a-499f-a23c-38803cc83f7d
 1. Download the latest release from [here](https://github.com/Patesz22/gambling-subathon-timer/releases)
 2. Extract the file and create a ```config``` folder in the main folder.
 3. Install the dependencies
-4. Copy **```config.js```** file from the ```config_examples``` folder to ```config``` folder.
+4. Copy **```config_examples/config.js```** file to ```/config``` folder.
 5. Read and set up the copied config file.
 
 ## Usage
@@ -148,5 +148,5 @@ You can change the type, by deleting the ```//```  from the front, and putting i
 
 ## License
 
-[![License](https://img.shields.io/badge/license-MIT-blue)](https://choosealicense.com/licenses/mit/ "View license")
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://choosealicense.com/licenses/mit/ "View license")<br>
 This project is licensed under the [MIT License](LICENSE). See the `LICENSE` file for more details on terms and conditions.
