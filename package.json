@@ -1,25 +1,25 @@
 {
-  "name": "spin-wheel",
-  "version": "5.0.2",
-  "author": "CrazyTim",
+  "name": "gambling-subathon-timer",
+  "version": "1.2.1",
+  "author": "Patesz22",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CrazyTim/spin-wheel.git"
+    "url": "git+https://github.com/Patesz22/gambling-subathon-timer.git"
   },
-  "homepage": "https://github.com/CrazyTim/spin-wheel#readme",
+  "homepage": "https://github.com/Patesz22/gambling-subathon-timer.git#readme",
   "license": "MIT",
-  "description": "An easy to use, themeable component for randomising choices and prizes.",
+  "description": "An easy to use, highly customizable subathon timer, with a wheel of fortune as a bonus.",
   "keywords": [
+    "subathon",
     "spinner",
     "wheel",
     "random",
     "picker",
     "prize",
     "spinning",
-    "component",
-    "roulette",
     "fortune",
-    "lucky"
+    "lucky",
+    "timer"
   ],
   "type": "module",
   "engines": {
