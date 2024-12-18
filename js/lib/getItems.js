@@ -135,8 +135,11 @@ function getCenterImage()
     {
         if (wheel_random_center_img)
             {
-                return wheel_center_img[randomInRange(0, wheel_random_center_img.length - 1)];
+                return wheel_center_img[randomInRange(0, wheel_center_img.length - 1)];
             }
 
-        else return wheel_random_center_img[0];
+        else
+        {
+            return wheel_center_img[0];
+        }
     }

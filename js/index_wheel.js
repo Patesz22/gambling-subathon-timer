@@ -50,13 +50,13 @@ bc.onmessage = async (event) =>
 		await imageToHTML(props)
 		const container = document.querySelector('.wheel-wrapper');
 		const wheel = new Wheel(container, props);
-		document.getElementById("img-center").src = getCenterImage();
 
 		wheel.rotation = getRandomInt(0, 360);
 		wheel.isInteractive = false;
 		wheel.rotationResistance = wheel_spin_resistance
 
 		await sleep(wheel_start_delay);
+		document.getElementById("img-center").src = getCenterImage();
 		switch (wheelpick)
 			{
 				case 'weighted':
