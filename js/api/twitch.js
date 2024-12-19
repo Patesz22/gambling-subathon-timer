@@ -231,7 +231,7 @@ if (twitch_channel_name !== "") {
                             inarray_t.unshift(`${username}:-?${time}`)
                             if (min_tier1_gifted <= 0)
                                 {setCookie("toSpin", inarray_t.toString(), 14)}
-                            addTime(endingTime, seconds_added_per_giftsub_prime * time);
+                            addTime(endingTime, time);
                             break;
 
                         case "1000":
@@ -243,7 +243,7 @@ if (twitch_channel_name !== "") {
                             inarray_t.unshift(`${username}:-?${time}`)
                             if (min_tier1_gifted <= 0)
                                 {setCookie("toSpin", inarray_t.toString(), 14)}
-                            addTime(endingTime, seconds_added_per_giftsub_tier1 * time);
+                            addTime(endingTime, time);
                             break;
 
                         case "2000":
@@ -255,7 +255,7 @@ if (twitch_channel_name !== "") {
                             inarray_t.unshift(`${username}:-?${time}`)
                             if (min_tier2_gifted <= 0)
                                 {setCookie("toSpin", inarray_t.toString(), 14)}
-                            addTime(endingTime, seconds_added_per_giftsub_tier2 * time);
+                            addTime(endingTime, time);
                             break;
 
                         case "3000":
@@ -267,7 +267,7 @@ if (twitch_channel_name !== "") {
                             inarray_t.unshift(`${username}:-?${time}`)
                             if (min_tier3_gifted <= 0)
                                 {setCookie("toSpin", inarray_t.toString(), 14)}
-                            addTime(endingTime, seconds_added_per_giftsub_tier3 * time);
+                            addTime(endingTime, time);
                             break;
                     }
                     // if (!users.includes(username))
@@ -381,7 +381,7 @@ if (twitch_channel_name !== "") {
                 inarray_t.unshift(`${userstate['display-name']}:-?${time}`)
                 if (min_bit_amount <= userstate.bits)
                     {setCookie("toSpin", inarray_t.toString(), 14)}
-                addTime(endingTime, seconds_added_per_bits * time);
+                addTime(endingTime, time);
                 // if (!users.includes(userstate['display-name']))
                 // {
                 //     users.push(userstate['display-name']);
